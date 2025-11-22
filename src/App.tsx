@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import renaultImg from './assets/renault_2008.jpg'
+import dafImg from './assets/daf_2009.jpg'
+
 
 /* ------------ Типы ----------- */
 type Truck = {
@@ -31,7 +34,7 @@ const INITIAL_FLEET: Truck[] = [
     year: 2008,
     type: "Тягач",
     notes: "Регулярный рейс, приоритетные маршруты",
-    img: "/src/assets/renault_2008.jpg",
+    img: renaultImg,
     available: true,
   },
   {
@@ -40,7 +43,7 @@ const INITIAL_FLEET: Truck[] = [
     year: 2009,
     type: "Тягач",
     notes: "Техника в отличном состоянии",
-    img: "/src/assets/daf_2009.jpg",
+    img: dafImg,
     available: false,
   },
 ];
