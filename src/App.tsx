@@ -241,13 +241,13 @@ const App: React.FC = () => {
             <div className="card small">
               <div className="icon">🚚</div>
               <h3>Регулярные рейсы</h3>
-              <p>Оптимальные графики и гарантированная загрузка.</p>
+              <p>Оптимальные сроки и гарантированная доставка.</p>
             </div>
 
             <div className="card small">
               <div className="icon">⚙️</div>
               <h3>Техническая поддержка</h3>
-              <p>Плановое ТО и быстрые ремонты на базе сервиса.</p>
+              <p>Надежные грузовые средства.</p>
             </div>
 
             <div className="card small">
@@ -294,6 +294,7 @@ const App: React.FC = () => {
               <article key={t.id} className="truck-card" onClick={() => setSelectedTruck(t)} tabIndex={0}>
                <div className={`truck-image ${t.available ? "" : "muted"}`}>
                 <div className="truck-img-wrapper">
+                  <span className={`truck-badge ${t.available ? 'free' : 'busy'}`}>{t.available ? 'Свободен' : 'В рейсе'}</span>
                   <img
                     src={t.img}
                     alt={`${t.name} ${t.year}`}
