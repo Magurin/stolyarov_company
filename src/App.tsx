@@ -294,7 +294,6 @@ const App: React.FC = () => {
               <article key={t.id} className="truck-card" onClick={() => setSelectedTruck(t)} tabIndex={0}>
                <div className={`truck-image ${t.available ? "" : "muted"}`}>
                 <div className="truck-img-wrapper">
-                  <span className={`chip ${t.available ? 'chip-green' : 'chip-red'}`}>{t.available ? 'Свободен' : 'В рейсе'}</span>
                   <img
                     src={t.img}
                     alt={`${t.name} ${t.year}`}
@@ -305,6 +304,7 @@ const App: React.FC = () => {
                   <div className="truck-title">{t.name} — {t.year}</div>
                   <div className="truck-sub">{t.type}</div>
                   <div className="truck-row">
+                    <span className={`chip ${t.available ? "chip-green" : "chip-red"}`}>{t.available ? "Свободен" : "В рейсе"}</span>
                     <button className="link-btn" onClick={(e) => { e.stopPropagation(); setForm({ ...form, route: "" }); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}>Заказать рейс</button>
                   </div>
                 </div>
