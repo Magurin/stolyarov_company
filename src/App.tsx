@@ -31,7 +31,7 @@ const INITIAL_FLEET: Truck[] = [
     year: 2008,
     type: "Тягач",
     notes: "Регулярный рейс, приоритетные маршруты",
-    img: "./src/assets/renault_2008.jpg",
+    img: "/src/assets/renault_2008.jpg",
     available: true,
   },
   {
@@ -40,7 +40,7 @@ const INITIAL_FLEET: Truck[] = [
     year: 2009,
     type: "Тягач",
     notes: "Техника в отличном состоянии",
-    img: "./src/assets/daf_2009.jpg",
+    img: "/src/assets/daf_2009.jpg",
     available: false,
   },
 ];
