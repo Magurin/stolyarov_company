@@ -51,7 +51,7 @@ const yearsOnMarket = new Date().getFullYear() - FOUNDED;
 /* ------------ Главный компонент ----------- */
 const App: React.FC = () => {
   /* --- state --- */
-  const [fleet, setFleet] = useState<Truck[]>(INITIAL_FLEET);
+  const [fleet, _setFleet] = useState<Truck[]>(INITIAL_FLEET);
   const [filterAvailable, setFilterAvailable] = useState<"all" | "free" | "busy">("all");
   const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
   const [counters, setCounters] = useState({ years: 0, shipments: 0 });
@@ -61,7 +61,7 @@ const App: React.FC = () => {
   const [toast, setToast] = useState<string | null>(null);
 
   /* --- derived --- */
-  const shipmentsText = "1000+";
+  
 
   const filteredFleet = useMemo(() => {
     if (filterAvailable === "all") return fleet;
