@@ -22,7 +22,6 @@ type FormState = {
 /* ------------ Данные (пример) ----------- */
 const COMPANY_NAME = "ИП «Столярова О.Н.»";
 const FOUNDED = 2012;
-const ROUTES = "Павлодар — Омск, Омск — Павлодар";
 const GOODS = ["Металл", "Гофра", "Машинное масло"];
 
 const INITIAL_FLEET: Truck[] = [
@@ -56,7 +55,7 @@ const App: React.FC = () => {
   const [filterAvailable, setFilterAvailable] = useState<"all" | "free" | "busy">("all");
   const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
   const [counters, setCounters] = useState({ years: 0, shipments: 0 });
-  const [form, setForm] = useState<FormState>({ name: "", contact: "", route: ROUTES, message: "" });
+  const [form, setForm] = useState<FormState>({ name: "", contact: "", route: "", message: "" });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [sending, setSending] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -113,7 +112,7 @@ const App: React.FC = () => {
     await new Promise((r) => setTimeout(r, 900));
     setSending(false);
     setToast("Заявка отправлена. Мы свяжемся с вами в течение рабочего дня.");
-    setForm({ name: "", contact: "", route: ROUTES, message: "" });
+    setForm({ name: "", contact: "", route: "", message: "" });
     setFormErrors({});
     setTimeout(() => setToast(null), 4000);
   };
@@ -138,7 +137,6 @@ const App: React.FC = () => {
       <header className="header">
         <div className="container header-inner">
           <div className="brand">
-            <div className="brand-mark"></div>
             <div>
               <div className="brand-title">{COMPANY_NAME}</div>
               <div className="brand-sub">Грузоперевозки</div>
@@ -159,7 +157,7 @@ const App: React.FC = () => {
         <div className="container hero-grid">
           <div className="hero-left">
             <h1 className="hero-title">Надёжные грузоперевозки с фокусом на скорость и безопасность</h1>
-            <p className="hero-lead">С 2012 года выполняем регулярные рейсы между Павлодаром и Омском. Поддерживаем высокий стандарт обслуживания и прозрачную коммуникацию с клиентом.</p>
+            <p className="hero-lead">С 2012 года выполняем регулярные рейсы между Казахстаном и Россией. Поддерживаем высокий стандарт обслуживания и прозрачную коммуникацию с клиентом.</p>
 
             <div className="hero-stats">
               <div className="stat">
@@ -178,15 +176,55 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="hero-right" aria-hidden>
-            <div className="hero-card">
-              <img src={INITIAL_FLEET[0].img} alt="Renault 2008" />
-              <div className="hero-card-body">
-                <div className="tc">Тягач Renault — 2008</div>
-                <div className="muted">Готов к междугородним рейсам</div>
-              </div>
-            </div>
-          </div>
+        </div>
+
+        <div className="hero-decor" aria-hidden>
+          {/* Box / crate */}
+          <svg className="decor-item d1 spin-slow" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" strokeWidth="3" fill="none">
+              <polygon points="20,32 50,18 80,32 50,46" />
+              <polygon points="20,32 20,72 50,86 50,46" />
+              <polygon points="80,32 80,72 50,86 50,46" />
+              <line x1="20" y1="32" x2="80" y2="32" />
+              <line x1="50" y1="18" x2="50" y2="86" />
+            </g>
+          </svg>
+
+          {/* Tire */}
+          <svg className="decor-item d2 spin-med" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" strokeWidth="5" fill="none">
+              <circle cx="50" cy="50" r="36" />
+              <circle cx="50" cy="50" r="18" strokeWidth="4" />
+            </g>
+            <g stroke="currentColor" strokeWidth="3" fill="none">
+              <line x1="50" y1="10" x2="50" y2="24" />
+              <line x1="50" y1="76" x2="50" y2="90" />
+              <line x1="10" y1="50" x2="24" y2="50" />
+              <line x1="76" y1="50" x2="90" y2="50" />
+              <line x1="20" y1="20" x2="30" y2="30" />
+              <line x1="70" y1="70" x2="80" y2="80" />
+              <line x1="20" y1="80" x2="30" y2="70" />
+              <line x1="70" y1="30" x2="80" y2="20" />
+            </g>
+          </svg>
+
+          {/* Bearing */}
+          <svg className="decor-item d3 spin-fast" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" strokeWidth="4" fill="none">
+              <circle cx="50" cy="50" r="40" />
+              <circle cx="50" cy="50" r="24" strokeWidth="3" />
+            </g>
+            <g fill="currentColor">
+              <circle cx="50" cy="14" r="3.6" />
+              <circle cx="73" cy="22" r="3.6" />
+              <circle cx="86" cy="50" r="3.6" />
+              <circle cx="73" cy="78" r="3.6" />
+              <circle cx="50" cy="86" r="3.6" />
+              <circle cx="27" cy="78" r="3.6" />
+              <circle cx="14" cy="50" r="3.6" />
+              <circle cx="27" cy="22" r="3.6" />
+            </g>
+          </svg>
         </div>
       </section>
 
@@ -251,15 +289,20 @@ const App: React.FC = () => {
           <div className="fleet-grid">
             {filteredFleet.map((t) => (
               <article key={t.id} className="truck-card" onClick={() => setSelectedTruck(t)} tabIndex={0}>
-                <div className={`truck-image ${t.available ? "" : "muted"}`}>
-                  <img src={t.img} alt={`${t.name} ${t.year}`} />
+               <div className={`truck-image ${t.available ? "" : "muted"}`}>
+                <div className="truck-img-wrapper">
+                  <img
+                    src={t.img}
+                    alt={`${t.name} ${t.year}`}
+                  />
                 </div>
+               </div>
                 <div className="truck-body">
                   <div className="truck-title">{t.name} — {t.year}</div>
                   <div className="truck-sub">{t.type}</div>
                   <div className="truck-row">
                     <span className={`chip ${t.available ? "chip-green" : "chip-red"}`}>{t.available ? "Свободен" : "В рейсе"}</span>
-                    <button className="link-btn" onClick={(e) => { e.stopPropagation(); setForm({ ...form, route: ROUTES }); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}>Заказать рейс</button>
+                    <button className="link-btn" onClick={(e) => { e.stopPropagation(); setForm({ ...form, route: "" }); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}>Заказать рейс</button>
                   </div>
                 </div>
               </article>
@@ -275,22 +318,32 @@ const App: React.FC = () => {
             <h3>Оставьте заявку</h3>
             <p className="muted">Опишите груз и желаемые даты. Мы свяжемся для уточнения деталей.</p>
 
-            <form onSubmit={onSubmit} className="form">
+            <form onSubmit={onSubmit} className="form" autoComplete="off" noValidate>
+              {/* Hidden dummy fields to prevent browser autofill (some browsers ignore autocomplete="off") */}
+              <input type="text" name="__hidden_username" autoComplete="username" style={{position: 'absolute', left: '-9999px', top: '-9999px'}} />
+              <input type="password" name="__hidden_password" autoComplete="new-password" style={{position: 'absolute', left: '-9999px', top: '-9999px'}} />
               <div className="field">
                 <label>Имя</label>
-                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                <input autoComplete="off" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 {formErrors.name && <div className="field-error">{formErrors.name}</div>}
               </div>
 
               <div className="field">
                 <label>Телефон или email</label>
-                <input value={form.contact} onChange={(e) => setForm({ ...form, contact: e.target.value })} />
+                <input autoComplete="off" value={form.contact} onChange={(e) => setForm({ ...form, contact: e.target.value })} />
                 {formErrors.contact && <div className="field-error">{formErrors.contact}</div>}
               </div>
 
               <div className="field">
                 <label>Маршрут</label>
-                <input value={form.route} onChange={(e) => setForm({ ...form, route: e.target.value })} />
+                <input
+                  name="route_input"
+                  autoComplete="off"
+                  readOnly
+                  value={form.route}
+                  onFocus={(e) => { (e.target as HTMLInputElement).readOnly = false; }}
+                  onChange={(e) => setForm({ ...form, route: e.target.value })}
+                />
               </div>
 
               <div className="field">
@@ -301,7 +354,7 @@ const App: React.FC = () => {
 
               <div className="form-actions">
                 <button className="btn btn-primary" type="submit" disabled={sending}>{sending ? "Отправка..." : "Отправить"}</button>
-                <button type="button" className="btn btn-ghost" onClick={() => { setForm({ name: "", contact: "", route: ROUTES, message: "" }); setFormErrors({}); }}>Очистить</button>
+                <button type="button" className="btn btn-ghost" onClick={() => { setForm({ name: "", contact: "", route: "", message: "" }); setFormErrors({}); }}>Очистить</button>
               </div>
             </form>
           </div>
@@ -315,7 +368,7 @@ const App: React.FC = () => {
             <div className="mini-cards">
               <div className="mini-card">
                 <div className="mini-title">Маршруты</div>
-                <div className="mini-sub">{ROUTES}</div>
+                <div className="mini-sub">по всей России и Казахстану</div>
               </div>
               <div className="mini-card">
                 <div className="mini-title">Основные грузы</div>
@@ -346,7 +399,7 @@ const App: React.FC = () => {
             <p className="muted">{selectedTruck.type}</p>
             <p>{selectedTruck.notes}</p>
             <div className="modal-actions">
-              <button className="btn btn-primary" onClick={() => { setForm({ ...form, route: ROUTES }); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); setSelectedTruck(null); }}>Заказать этот тягач</button>
+              <button className="btn btn-primary" onClick={() => { setForm({ ...form, route: "" }); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); setSelectedTruck(null); }}>Заказать этот тягач</button>
               <button className="btn btn-ghost" onClick={() => setSelectedTruck(null)}>Закрыть</button>
             </div>
           </div>
